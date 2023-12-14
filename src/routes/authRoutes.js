@@ -1,13 +1,9 @@
 const express = require('express')
 const passport = require('passport')
-const GoogleStrategy = require('passport-google-oidc')
-const db = require('../config/firestore')
+
+const { oauth2Callback } = require('../controllers/oauth2Controller')
 
 const router = express.Router()
-
-router.get('/login', function (req, res, next) {
-  res.render('login')
-})
 
 router.get(
   '/oauth2',
@@ -20,6 +16,6 @@ router.get(
     failureRedirect: '/auth/oauth2/failure',
     session: false,
   }),
-  googleAuthCallback
+  oauth2Callback
 )
 module.exports = router
